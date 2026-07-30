@@ -31,7 +31,23 @@ androidComponents {
             val versionCode = output.versionCode.orNull ?: 1
 
             output.outputFileName.set(
-                "$appName-$flavor-$buildType-v$versionName($versionCode)-$gitBranch-$buildDate.apk"
+                buildString {
+                    append(appName)
+                    append("-")
+                    append(flavor)
+                    append("-")
+                    append(buildType)
+                    append("-v")
+                    append(versionName)
+                    append("(")
+                    append(versionCode)
+                    append(")")
+                    append("-")
+                    append(gitBranch)
+                    append("-")
+                    append(buildDate)
+                    append(".apk")
+                }
             )
         }
     }
@@ -76,19 +92,19 @@ android {
 
     productFlavors {
 
-        create("dev") {
+        create("development") {
             dimension = "environment"
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
         }
 
-        create("uat") {
+        create("staging") {
             dimension = "environment"
-            applicationIdSuffix = ".uat"
-            versionNameSuffix = "-uat"
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
         }
 
-        create("prod") {
+        create("production") {
             dimension = "environment"
         }
     }
